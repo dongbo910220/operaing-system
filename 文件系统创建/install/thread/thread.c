@@ -85,7 +85,7 @@ void init_thread(struct task_struct* pthread, char* name, int prio) {
    pthread->elapsed_ticks = 0;
    pthread->pgdir = NULL;
 
-   /* 预留标准输入输出 */
+   /* 标准输入输出先空出来 */
    pthread->fd_table[0] = 0;
    pthread->fd_table[1] = 1;
    pthread->fd_table[2] = 2;

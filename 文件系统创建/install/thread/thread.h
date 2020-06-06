@@ -87,7 +87,7 @@ struct task_struct {
  * 也就是此任务执行了多久*/
    uint32_t elapsed_ticks;
 
-   int32_t fd_table[MAX_FILES_OPEN_PER_PROC];	// 文件描述符数组
+   int32_t fd_table[MAX_FILES_OPEN_PER_PROC];	// 已打开文件数组
 
 /* general_tag的作用是用于线程在一般的队列中的结点 */
    struct list_elem general_tag;				    
