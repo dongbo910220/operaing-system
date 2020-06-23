@@ -19,7 +19,7 @@ static void wash_path(char* old_abs_path, char* new_abs_path) {
       new_abs_path[1] = 0;
       return;
    }
-   new_abs_path[0] = 0;    // 避免传给new_abs_path的缓冲区不干净
+   new_abs_path[0] = 0;	   // 避免传给new_abs_path的缓冲区不干净
    strcat(new_abs_path, "/");
    while (name[0]) {
       /* 如果是上一级目录“..” */

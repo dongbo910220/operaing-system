@@ -5,6 +5,7 @@
 #include "bitmap.h"
 #include "memory.h"
 
+#define TASK_NAME_LEN 16
 #define MAX_FILES_OPEN_PER_PROC 8
 /* 自定义通用函数类型,它将在很多线程函数中做为形参类型 */
 typedef void thread_func(void*);
@@ -79,7 +80,7 @@ struct task_struct {
    uint32_t* self_kstack;	 // 各内核线程都用自己的内核栈
    pid_t pid;
    enum task_status status;
-   char name[16];
+   char name[TASK_NAME_LEN];
    uint8_t priority;
    uint8_t ticks;	   // 每次在处理器上执行的时间嘀嗒数
 /* 此任务自上cpu运行后至今占用了多少cpu嘀嗒数,
