@@ -29,9 +29,6 @@ static int32_t copy_pcb_vaddrbitmap_stack0(struct task_struct* child_thread, str
     * 下面将child_thread->userprog_vaddr.vaddr_bitmap.bits指向自己的位图vaddr_btmp */
    memcpy(vaddr_btmp, child_thread->userprog_vaddr.vaddr_bitmap.bits, bitmap_pg_cnt * PG_SIZE);
    child_thread->userprog_vaddr.vaddr_bitmap.bits = vaddr_btmp;
-   /* 调试用 */
-//   ASSERT(strlen(child_thread->name) < 11);	// pcb.name的长度是16,为避免下面strcat越界
-//   strcat(child_thread->name,"_fork");
    return 0;
 }
 
@@ -112,14 +109,14 @@ static int32_t build_child_stack(struct task_struct* child_thread) {
 
 /* 更新inode打开数 */
 static void update_inode_open_cnts(struct task_struct* thread) {
-   int32_t local_fd = 3, global_fd = 0;
-   while (local_fd < MAX_FILES_OPEN_PER_PROC) {
-      global_fd = thread->fd_table[local_fd];
-      ASSERT(global_fd < MAX_FILE_OPEN);
-      if (global_fd != -1) {
-	 file_table[global_fd].fd_inode->i_open_cnts++;
+   int32_t fd_idx = 3, _fd_idx = 0;
+   while (fd_idx < MAX_FILES_OPEN_PER_PROC) {
+      _fd_idx = thread->fd_table[fd_idx];
+      ASSERT(_fd_idx < MAX_FILE_OPEN);
+      if (_fd_idx != -1) {
+	 file_table[_fd_idx].fd_inode->i_open_cnts++;
       }
-      local_fd++;
+      fd_idx++;
    }
 }
 

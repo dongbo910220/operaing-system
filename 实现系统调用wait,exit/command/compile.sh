@@ -11,10 +11,12 @@ if [[ ! -d "../lib" || ! -d "../build" ]];then
    exit
 fi
 
-BIN="prog_arg"
+BIN="cat"
 CFLAGS="-Wall -c -fno-builtin -W -Wstrict-prototypes \
       -Wmissing-prototypes -Wsystem-headers"
-LIBS="-I ../lib -I ../lib/user -I ../fs"
+LIBS="-I ../lib/ -I ../lib/kernel/ -I ../lib/user/ -I \
+      ../kernel/ -I ../device/ -I ../thread/ -I \
+      ../userprog/ -I ../fs/ -I ../shell/"
 OBJS="../build/string.o ../build/syscall.o \
       ../build/stdio.o ../build/assert.o start.o"
 DD_IN=$BIN
@@ -30,13 +32,3 @@ if [[ -f $BIN ]];then
    dd if=./$DD_IN of=$DD_OUT bs=512 \
    count=$SEC_CNT seek=300 conv=notrunc
 fi
-
-##########   以上核心就是下面这五条命令   ##########
-#nasm -f elf ./start.S -o ./start.o
-#ar rcs simple_crt.a ../build/string.o ../build/syscall.o \
-#   ../build/stdio.o ../build/assert.o ./start.o
-#gcc -Wall -c -fno-builtin -W -Wstrict-prototypes -Wmissing-prototypes \
-#   -Wsystem-headers -I ../lib/ -I ../lib/user -I ../fs prog_arg.c -o prog_arg.o
-#ld prog_arg.o simple_crt.a -o prog_arg
-#dd if=prog_arg of=/home/work/my_workspace/bochs/hd60M.img \
-#   bs=512 count=11 seek=300 conv=notrunc
